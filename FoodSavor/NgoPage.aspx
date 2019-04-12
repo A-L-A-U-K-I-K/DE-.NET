@@ -1,10 +1,7 @@
-﻿<%@ Page Title="Food Savior" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="FoodSavor.Default" %>
+﻿<%@ Page Title="Food Savior" Language="C#" MasterPageFile="~/Site2.Master" AutoEventWireup="true" CodeBehind="NgoPage.aspx.cs" Inherits="FoodSavor.NgoPage" %>
 
-<asp:Content ID="headerDefault" ContentPlaceHolderID="DefaultHeadContent" runat="server">
+<asp:Content ID="headerngo" ContentPlaceHolderID="NgoHeadContent" runat="server">
 	<style>
-        .fonts{
-            font-family : Alternate Gothic;
-        }
 		.container-fluid {
 			padding: 50px;
 		}
@@ -43,10 +40,28 @@
 			width: 100%;
 			height: 550px !important;
 		}
+
+		.centered{
+			position: absolute;
+			top: 70%;
+			left: 45%;
+		}
+
+		.carousel-caption{
+			bottom: 200px;
+		}
+
+		.btn-lg{
+			font-size: 24px;
+			padding: 10px 20px;
+			z-index: 99;
+			border: 1px solid #bbb;
+		}
 	</style>
 </asp:Content>
 
-<asp:Content ID="bodyDefault" ContentPlaceHolderID="DefaultBodyContent" runat="server">
+
+<asp:Content ID="bodyngo" ContentPlaceHolderID="NgoBodyContent" runat="server">
 
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		<!-- Indicators -->
@@ -61,24 +76,23 @@
 			<div class="item active">
 				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-1.jpg"/>
 				<div class="carousel-caption">
-					
-					<h3>SAVE FOOD SAVE LIFE !</h3>
+					<h2 class="display-2">Hello</h2>
 				</div>
 			</div>
 
 			<div class="item">
 				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-2.jpg"/>
 				<div class="carousel-caption">
-					
-					<h3>SAVE FOOD SHARE THE EXTRA !</h3>
+					<h3>Chicago</h3>
+					<p>Thank you, Chicago!</p>
 				</div>
 			</div>
 
 			<div class="item">
 				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-3.jpg"/>
 				<div class="carousel-caption">
-					
-					<h3>THINK. EAT. SAVE !</h3>
+					<h3>New York</h3>
+					<p>We love the Big Apple!</p>
 				</div>
 			</div>
 		</div>
@@ -94,9 +108,13 @@
 		</a>
 	</div>
 
+	<div class="centered">
+		<asp:Button CssClass="btn btn-success btn-lg" ID="request" runat="server" Text="Request" OnClick="request_Click"/>		
+	</div>
+
 	<%--About Us--%>
-	<div id="about" class="container-fluid text-center">
-		<div class="row fonts">
+	<div class="container-fluid text-center">
+		<div class="row">
 			<div class="col-sm-6">
 				<h2 style="font-weight: bold;">About Us</h2>
 				<br />
@@ -116,7 +134,7 @@
 		</div>
 	</div>
 	<%--Vision and Mission--%>
-	<div class="container-fluid bg-grey text-center fonts">
+	<div class="container-fluid bg-grey text-center">
 		<span class="glyphicon glyphicon-globe logo1"></span>
 		<h2><strong>Our VISION</strong></h2>
 		<h4>Expand our global network linking available sources of 
@@ -127,7 +145,7 @@
 		<h4>Our primary aim was to reduce food wastage in restaurants and special occasions</h4>
 	</div>
 	<%--Contact--%>
-	<div id="contact" class="container-fluid fonts" runat="server">
+	<div class="container-fluid">
 		<h2 class="text-center">CONTACT</h2>
 		<div class="row">
 			<div class="col-sm-5">

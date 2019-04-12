@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="FoodSavor.login" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+<asp:Content ID="loginHeader" ContentPlaceHolderID="DefaultHeadContent" runat="server">
 	<style type="text/css">
 		body {
 			background-color: #f0f0f0;
@@ -8,12 +8,11 @@
 
 		.container-fluid {
 			width: 100%;
-			height: auto;
-			margin-top: 70px;
+			height: 100%;
 		}
 
 		/* Full-width input fields */
-		input[type=text], input[type=password] {
+		input[type=email], input[type=password] {
 			width: 100%;
 			padding: 12px 20px;
 			margin: 8px 0;
@@ -23,15 +22,35 @@
 			box-sizing: border-box;
 		}
 
+		.text-label {
+			font-family: Arial;
+			font-size: 14px;
+			font-weight: bold;
+		}
+
+		.error {
+			font-size: 14px;
+			color: red;
+		}
+
+		.margin-top {
+			margin-top: 5px;
+		}
+
 		/* Set a style for all buttons */
 		.button {
-			background-color: #4CAF50;
+			background-color: green;
 			color: white;
-			padding: 14px 20px;
+			padding: 10px;
 			margin: 8px 0;
-			border: none;
+			border: 1px solid black;
+			border-radius: 10px;
 			cursor: pointer;
 			width: 100%;
+			text-shadow: 2px 1px #333;
+			letter-spacing: 1.5px;
+			font-size: 18px;
+			font-weight: bold;
 		}
 
 			.button:hover {
@@ -44,19 +63,41 @@
 
 		.heading {
 			color: #5f5f5f;
-			font-size: 24px;
+			font-size: 30px;
 		}
 
 		.login {
 			border: 1px solid #ccc;
-			height: 100%;
-			width: 60%;
+			height: auto;
+			width: 50%;
+			margin: 2%;
 			display: inline-block;
-			margin: 30px;
-			padding-top: 40px;
-			padding-bottom: 40px;
-			box-shadow: rgba(124,124,124,4) 1px 1px 1px inset;
+			padding: 20px;
+			box-shadow: rgba(150,150,150,8) 1px 1px 1px inset;
 			background-color: white;
+		}
+
+		@media (max-width: 768px) {
+			.login {
+				border: 1px solid #ccc;
+				height: auto;
+				width: 80%;
+				margin: 2%;
+				display: inline-block;
+				padding: 20px;
+				box-shadow: rgba(150,150,150,8) 1px 1px 1px inset;
+				background-color: white;
+			}
+
+			span.psw {
+				float: left;
+			}
+
+			hr {
+				border: 1px solid #8f8f8f;
+				opacity: 0.5;
+				margin: 0px !important;
+			}
 		}
 
 		hr {
@@ -64,49 +105,86 @@
 			opacity: 0.5;
 			margin: 20px;
 		}
+
+		.alert {
+			margin-top: 5px;
+			margin-bottom: 5px !important;
+		}
+
+		.radio {
+			padding-left: 20px;
+			padding-right: 20px;
+			margin: 0px;
+			text-align: left;
+		}
 	</style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+<asp:Content ID="loginBody" ContentPlaceHolderID="DefaultBodyContent" runat="server">
 	<div class="container-fluid text-center">
 		<div class="login">
 			<div class="row">
 				<div class="col-md-1">
 				</div>
-				<div class="col-md-10" style="text-align: left;">
-					<asp:Label CssClass="heading" ID="Label4" runat="server" Text="Login"></asp:Label>
+				<div class="col-md-10" style="text-align: left; font-weight: bold;">
+					<asp:Label CssClass="heading" ID="login_heading" runat="server" Text="Login"></asp:Label>
 				</div>
 				<div class="col-md-1">
 				</div>
 			</div>
 			<hr />
+			<br />
 			<div class="row">
 				<div class="col-md-1">
 				</div>
-				<div class="col-md-10" style="text-align: left;">
-					<br />
-					<asp:Label ID="Label1" runat="server" Text="Username"></asp:Label>
-					<asp:TextBox AutoPostBack="true" TextMode="SingleLine" ID="TextBox1" runat="server" placeholder="Enter Username"></asp:TextBox>
+				<div class="col-md-4" style="text-align: left; font-weight: bold;">
+					<asp:Label runat="server" Text="Select User Type:"></asp:Label>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+							<asp:RadioButton CssClass="radio" GroupName="usertype" ID="customer" runat="server" Text="Customer" Checked="true" />
+						</div>
+						<div class="col-md-6">
+							<asp:RadioButton CssClass="radio" GroupName="usertype" ID="ngo" runat="server" Text="NGO" />
+						</div>
+					</div>
 				</div>
 				<div class="col-md-1">
 				</div>
 			</div>
+			<br />
 			<div class="row">
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-10" style="text-align: left;">
-					<asp:Label ID="Label2" runat="server" Text="Password"></asp:Label>
-					<asp:TextBox AutoPostBack="true" TextMode="Password" ID="TextBox2" runat="server" placeholder="Enter Password"></asp:TextBox>
+					<asp:Label CssClass="text-label" ID="login_email_label"
+						runat="server" Text="Email"></asp:Label>
+					<asp:TextBox CssClass="textbox" TextMode="Email" ID="login_email"
+						runat="server" placeholder="Enter Email"></asp:TextBox>
+					<asp:RequiredFieldValidator CssClass="error" ID="email_validation"
+						runat="server" ErrorMessage="Email is Required"
+						ControlToValidate="login_email"></asp:RequiredFieldValidator>
 				</div>
 				<div class="col-md-1">
 				</div>
 			</div>
-			<div class="row">
+			<div class="row margin-top">
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-10" style="text-align: left;">
+					<asp:Label CssClass="text-label" ID="login_pass_label" runat="server" Text="Password"></asp:Label>
+					<asp:TextBox CssClass="textbox" TextMode="Password" ID="login_password" runat="server" placeholder="Enter Password"></asp:TextBox>
+					<asp:RequiredFieldValidator CssClass="error" ID="password_validation" runat="server" ErrorMessage="Password is Empty" ControlToValidate="login_password"></asp:RequiredFieldValidator>
+				</div>
+				<div class="col-md-1">
+				</div>
+			</div>
+			<div class="row margin-top">
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-5" style="text-align: left;">
-					<asp:Label ID="Label3" runat="server" Text="">
-						<asp:CheckBox AutoPostBack="true" ID="CheckBox1" runat="server" Text="Remember Me" Checked="true" />
-					</asp:Label>
+					<asp:CheckBox ID="remember" runat="server" Text="Remember Me" Checked="true" />
 				</div>
 				<div class="col-md-5">
 					<span class="psw">Forgot <a href="~/">password?</a></span>
@@ -118,7 +196,13 @@
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-10">
-					<asp:Button CssClass="button" AutoPostBack="true" ID="loginBtn" runat="server" Text="Login" OnClick="loginBtn_Click" />
+					<div id="login_error" runat="server" class="alert alert-danger alert-dimdissable" style="display: none;">
+						<button type="button" class="close" data-dimdiss="alert" aria-hidden="true">
+							&times;
+						</button>
+						Incorrect username or password
+					</div>
+					<asp:Button CssClass="button" ID="loginBtn" runat="server" Text="Login" OnClick="loginBtn_Click" />
 				</div>
 				<div class="col-md-1">
 				</div>
@@ -127,7 +211,7 @@
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-10" style="text-align: left;">
-					<span>New user? <a href="~/signup">Sign Up</a></span>
+					<span>New user? <a runat="server" href="~/cont/signup">Sign Up</a></span>
 				</div>
 				<div class="col-md-1">
 				</div>

@@ -7,11 +7,17 @@ using System.Web.UI.WebControls;
 
 namespace FoodSavor
 {
-    public partial class _Default : Page
+    public partial class Default : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        }
-    }
+			if (Request.Cookies["user"] != null)
+			{
+				if(Request.Cookies["user"]["usertype"].Equals("customer"))
+					Response.Redirect("UserPage.aspx");
+				else
+					Response.Redirect("NgoPage.aspx");
+			}
+		}
+	}
 }

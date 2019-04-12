@@ -1,15 +1,13 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="FoodSavor.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="FoodSavor.Site1" %>
 
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head runat="server">
-
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<%-- Title of the Page given in the content Pages --%>
+	<%--title will be selected from content page header--%>
 	<title><%: Page.Title %></title>
 
 	<asp:PlaceHolder runat="server">
@@ -21,14 +19,69 @@
 	<%--favicon image--%>
 	<link href="~/assets/favicon.png" rel="shortcut icon" type="image/x-icon" />
 
-	<link rel="stylesheet" href="css/sitemaster.css"/>
+	<style type="text/css">
+		body {
+			margin: 0;
+		}
 
-	<asp:ContentPlaceHolder ID="DefaultHeadContent" runat="server">
+		.navbar {
+			margin-bottom: 0px !important;
+			border-bottom: 3px solid #ff6a00;
+			letter-spacing: 1px;
+			border-radius: 0px !important;
+		}
+
+		.btn-transparent {
+			background-color: transparent;
+			border: 1px solid #e1e4e8;
+			border-radius: 8px;
+			padding: 10px !important;
+			margin-top: 3px;
+		}
+
+		#logout:hover {
+			background-color: red;
+			color: white;
+			padding: 10px !important;
+			border-top-right-radius: 8px;
+			border-bottom-right-radius: 8px;
+			font-display: block;
+			letter-spacing: 1px;
+			z-index: 999;
+		}
+
+		.extra-padding {
+			padding: 10px;
+		}
+
+		.text-size {
+			font-size: 16px;
+		}
+
+		.logo {
+			font-size: 24px !important;
+		}
+
+		a.nav, li.nav {
+			padding-left: 30px !important;
+			padding-right: 30px !important;
+		}
+
+		footer{
+			background-color: #222;
+		}
+
+		footer.container-fluid {
+			padding: 40px 50px;
+		}
+	</style>
+
+	<asp:ContentPlaceHolder ID="UserHeadContent" runat="server">
 	</asp:ContentPlaceHolder>
 
 </head>
-<body id="myPage">
-	<form id="form1" runat="server">
+<body>
+	<form id="form2" runat="server">
 		<asp:ScriptManager runat="server">
 			<Scripts>
 				<%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -49,7 +102,7 @@
 			</Scripts>
 		</asp:ScriptManager>
 
-		<div class="navbar navbar-inverse">
+		<div class="navbar navbar-inverse extra-padding">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -64,19 +117,16 @@
 						<li><a class="nav text-size" runat="server" href="~/">Home</a></li>
 						<li><a class="nav text-size" runat="server" href="~/">About</a></li>
 						<li><a class="nav text-size" runat="server" href="~/">Contact</a></li>
-						<li><a class="nav text-size" runat="server" href="~/ngo-register">Join Us</a></li>
-						<li>
-							<div class="btn-group">
-								<a class="btn btn-transparent text-size" id="login" runat="server" href="~/login" role="button">Login</a>
-								<a class="btn btn-transparent text-size" id="signup" runat="server" href="~/signup" role="button">Sign Up</a>
-							</div>
+						<li><a style="text-transform:capitalize;" class="nav text-size" runat="server" href="~/profile"><% if (Request.Cookies["user"] != null) { Response.Write(Request.Cookies["user"]["username"]); } %></a></li>
+						<li class="nav">
+							<a class="btn btn-transparent text-size" id="logout" runat="server" href="~/logout" role="button">Log Out</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 
-		<asp:ContentPlaceHolder ID="DefaultBodyContent" runat="server">
+		<asp:ContentPlaceHolder ID="UserBodyContent" runat="server">
 		</asp:ContentPlaceHolder>
 
 		<footer class="container-fluid text-center">
@@ -85,7 +135,6 @@
 			</a>
 			<h4 style="color: #f8f8f8;">Food Savior, Copyright &copy; 2019</h4>
 		</footer>
-
 	</form>
 </body>
 </html>

@@ -1,6 +1,6 @@
-﻿<%@ Page Title="Food Savior" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="FoodSavor.Default" %>
+﻿<%@ Page Title="Food Savior" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="UserPage.aspx.cs" Inherits="FoodSavor.UserPage" %>
 
-<asp:Content ID="headerDefault" ContentPlaceHolderID="DefaultHeadContent" runat="server">
+<asp:Content ID="headerUser" ContentPlaceHolderID="UserHeadContent" runat="server">
 	<style>
         .fonts{
             font-family : Alternate Gothic;
@@ -43,10 +43,28 @@
 			width: 100%;
 			height: 550px !important;
 		}
+		
+		.centered{
+			position: absolute;
+			top: 70%;
+			left: 45%;
+		}
+
+		.carousel-caption{
+			bottom: 200px;
+		}
+
+		.btn-lg{
+			font-size: 24px;
+			padding: 10px 20px;
+			z-index: 99;
+			border: 1px solid #bbb;
+		}
 	</style>
 </asp:Content>
 
-<asp:Content ID="bodyDefault" ContentPlaceHolderID="DefaultBodyContent" runat="server">
+
+<asp:Content ID="bodyUser" ContentPlaceHolderID="UserBodyContent" runat="server">
 
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		<!-- Indicators -->
@@ -59,25 +77,22 @@
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner">
 			<div class="item active">
-				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-1.jpg"/>
+				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-1.jpg" />
 				<div class="carousel-caption">
-					
 					<h3>SAVE FOOD SAVE LIFE !</h3>
 				</div>
 			</div>
 
 			<div class="item">
-				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-2.jpg"/>
+				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-2.jpg" />
 				<div class="carousel-caption">
-					
 					<h3>SAVE FOOD SHARE THE EXTRA !</h3>
 				</div>
 			</div>
 
 			<div class="item">
-				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-3.jpg"/>
+				<asp:Image CssClass="slider-image" runat="server" ImageUrl="~/assets/carousel-3.jpg" />
 				<div class="carousel-caption">
-					
 					<h3>THINK. EAT. SAVE !</h3>
 				</div>
 			</div>
@@ -94,8 +109,12 @@
 		</a>
 	</div>
 
+	<div class="centered">
+		<asp:Button CssClass="btn btn-success btn-lg" ID="donate" runat="server" Text="Donate" OnClick="donate_Click" />
+	</div>
+
 	<%--About Us--%>
-	<div id="about" class="container-fluid text-center">
+	<div class="container-fluid text-center">
 		<div class="row fonts">
 			<div class="col-sm-6">
 				<h2 style="font-weight: bold;">About Us</h2>
@@ -127,7 +146,7 @@
 		<h4>Our primary aim was to reduce food wastage in restaurants and special occasions</h4>
 	</div>
 	<%--Contact--%>
-	<div id="contact" class="container-fluid fonts" runat="server">
+	<div class="container-fluid fonts">
 		<h2 class="text-center">CONTACT</h2>
 		<div class="row">
 			<div class="col-sm-5">
